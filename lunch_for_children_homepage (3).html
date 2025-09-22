@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lunch for Children - Binance Charity Initiative</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 16px 0;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: #64748b;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: #1e293b;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: white;
+            border-radius: 16px;
+            padding: 48px;
+            margin-bottom: 48px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .funding-tag {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 20px;
+        }
+
+        .hero-description {
+            color: #64748b;
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .progress-container {
+            margin-bottom: 32px;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+        }
+
+        .amount-raised {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .percentage {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .progress-bar-container {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 32px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #fbbf24;
+            width: 0%;
+            border-radius: 4px;
+            transition: width 2s ease-out;
+        }
+
+        .donate-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .donate-btn {
+            background: #fbbf24;
+            color: #92400e;
+            border: none;
+            padding: 18px 35px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .donate-btn:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .social-link:hover {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+
+        .hero-image {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        /* Main content - single column now */
+        .main-content {
+            display: block;
+            margin-bottom: 60px;
+        }
+
+        .connect-card {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Stats Chart Section */
+        .stats-chart {
+            text-align: center;
+        }
+
+        .donut-chart {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 32px;
+        }
+
+        .donut-chart svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .donut-background {
+            fill: none;
+            stroke: #e2e8f0;
+            stroke-width: 20;
+        }
+
+        .donut-allocated {
+            fill: none;
+            stroke: #10b981;
+            stroke-width: 20;
+            stroke-dasharray: 0 565;
+            stroke-linecap: round;
+        }
+
+        .donut-pending {
+            fill: none;
+            stroke: #fbbf24;
+            stroke-width: 20;
+            stroke-dasharray: 0 565;
+            stroke-linecap: round;
+        }
+
+        .chart-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .total-raised-label {
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .total-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .crypto-amount {
+            color: #64748b;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .allocation-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 14px;
+            margin-bottom: 32px;
+        }
+
+        .allocation-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .allocation-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .dot-allocated { background: #10b981; }
+        .dot-pending { background: #fbbf24; }
+
+        .donor-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 32px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .stat-icon {
+            width: 24px;
+            height: 24px;
+            background: #fbbf24;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .stat-label {
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 4px;
+        }
+
+        .disclaimer {
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        /* Connect Section - Now the main focus */
+        .connect-section {
+            text-align: center;
+        }
+
+        .contract-highlight {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #92400e;
+            padding: 32px;
+            border-radius: 16px;
+            margin-bottom: 32px;
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.3);
+        }
+
+        .contract-highlight h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #92400e;
+        }
+
+        .main-contract-address {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            padding: 20px;
+            border-radius: 12px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.95rem;
+            word-break: break-all;
+            color: #92400e;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-copy-btn {
+            background: #92400e;
+            color: #fbbf24;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            margin-left: 12px;
+        }
+
+        .main-copy-btn:hover {
+            background: #78350f;
+        }
+
+        .contract-instructions {
+            font-size: 0.9rem;
+            color: #92400e;
+            opacity: 0.9;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: #fef3c7;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .connect-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 25px 0;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 28px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #1e293b;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            background: white;
+            gap: 12px;
+        }
+
+        .twitter-btn:hover {
+            background: #1da1f2;
+            border-color: #1da1f2;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .telegram-btn:hover {
+            background: #0088cc;
+            border-color: #0088cc;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .contract-section {
+            margin-top: 30px;
+        }
+
+        .contract-label {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .contract-address {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.85rem;
+            word-break: break-all;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .copy-btn {
+            background: #fbbf24;
+            color: #92400e;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #f59e0b;
+        }
+
+        .thank-you {
+            color: #10b981;
+            font-weight: 600;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        /* Problem Section */
+        .problem-section {
+            background: white;
+            border-radius: 16px;
+            padding: 48px;
+            margin-bottom: 48px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 24px;
+        }
+
+        .problem-content {
+            color: #64748b;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .problem-content p {
+            margin-bottom: 16px;
+        }
+
+        /* Solutions Section */
+        .solutions-section {
+            background: white;
+            border-radius: 16px;
+            padding: 48px;
+            margin-bottom: 48px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-top: 32px;
+        }
+
+        .solution-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.2s ease;
+            background: #f8fafc;
+        }
+
+        .solution-card:hover {
+            border-color: #fbbf24;
+            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.1);
+            background: white;
+        }
+
+        .solution-icon {
+            width: 48px;
+            height: 48px;
+            background: #fef3c7;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        .solution-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 12px;
+        }
+
+        .solution-description {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Phase Banner */
+        .phase-banner {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+            margin: 48px 0;
+        }
+
+        .phase-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .phase-description {
+            opacity: 0.9;
+            margin-bottom: 24px;
+        }
+
+        .phase-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .phase-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .connect-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .hero-section,
+            .problem-section,
+            .solutions-section,
+            .card {
+                padding: 24px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .donor-stats {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+
+            .donate-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .solutions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="#">All Projects</a> > <span>Binance Lunch for Children</span>
+        </div>
+
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="funding-tag">Funding</div>
+                    <h1 class="hero-title">Lunch for Children</h1>
+                    <p class="hero-description">
+                        Empowering education through nutrition. Every meal provides a child with the energy and focus needed to secure their educational future and break the cycle of poverty.
+                    </p>
+                    
+                    <div class="progress-container">
+                        <div class="progress-stats">
+                            <span class="amount-raised">$0.00 Raised of $100,000.00</span>
+                            <span class="percentage">0.00%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="progressBar"></div>
+                        </div>
+                    </div>
+
+                    <div class="donate-section">
+                        <button class="donate-btn">
+                            Start Supporting Education Today →
+                        </button>
+                        <div class="social-links">
+                            <a href="#" class="social-link" title="Twitter">🐤</a>
+                            <a href="#" class="social-link" title="Facebook">📘</a>
+                            <a href="#" class="social-link" title="Telegram">✈️</a>
+                            <a href="#" class="social-link" title="Discord">💬</a>
+                            <a href="#" class="social-link" title="Website">🌐</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hero-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f1f5f9'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-family='Arial, sans-serif' font-size='16' fill='%2364748b'%3EChildren eating lunch at school%3C/text%3E%3C/svg%3E" alt="Children eating lunch at school">
+                </div>
+            </div>
+        </div>
+
+        /* Main Content */
+        <div class="main-content">
+            <!-- Connect Section - Now Primary -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📬</div>
+                    <h2 class="card-title">Contract Address</h2>
+                </div>
+                
+                <div class="connect-section">
+                    <div class="contract-highlight">
+                        <h3>🔗 Smart Contract Address</h3>
+                        <div class="main-contract-address">
+                            <span>0x28d5d15668b3af252ee608a589881f9aa41dd9af</span>
+                            <button class="main-copy-btn" title="Copy Address">Copy</button>
+                        </div>
+                        <p class="contract-instructions">
+                            Use this address to send your BNB donations directly to help feed children
+                        </p>
+                    </div>
+
+                    <div class="connect-buttons">
+                        <a href="#" class="social-btn twitter-btn">
+                            <span>🐤</span>
+                            <span>Follow Twitter</span>
+                        </a>
+                        <a href="#" class="social-btn telegram-btn">
+                            <span>💬</span>
+                            <span>Join Telegram</span>
+                        </a>
+                    </div>
+
+                    <div class="thank-you">
+                        🙏 Thank you for supporting children's education and nutrition!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Chart - Now Secondary -->
+            <div class="card">
+                <div class="stats-chart">
+                    <div class="donut-chart">
+                        <svg viewBox="0 0 180 180">
+                            <circle class="donut-background" cx="90" cy="90" r="80"></circle>
+                            <circle class="donut-allocated" cx="90" cy="90" r="80"></circle>
+                            <circle class="donut-pending" cx="90" cy="90" r="80"></circle>
+                        </svg>
+                        <div class="chart-center">
+                            <div class="total-raised-label">Total Raised</div>
+                            <div class="total-amount">$0.00</div>
+                            <div class="crypto-amount">0.00 BNB ≈ $0.00</div>
+                        </div>
+                    </div>
+                    
+                    <div class="allocation-details">
+                        <div class="allocation-item">
+                            <div class="allocation-dot dot-allocated"></div>
+                            <span>Total allocated ≈ $0.00</span>
+                        </div>
+                        <div class="allocation-item">
+                            <div class="allocation-dot dot-pending"></div>
+                            <span>Total pending ≈ $0.00</span>
+                        </div>
+                    </div>
+
+                    <div class="donor-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">
+                                <div class="stat-icon">👥</div>
+                                <span>0</span>
+                            </div>
+                            <div class="stat-label">Donors</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">
+                                <div class="stat-icon">🎓</div>
+                                <span>0</span>
+                            </div>
+                            <div class="stat-label">End-beneficiaries</div>
+                        </div>
+                    </div>
+
+                    <div class="disclaimer">
+                        *Please note donations may not be reflected on the website or calculated in the total amount immediately. If your donation is not showing after 24 hours, please contact us.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Problem Section -->
+        <div class="problem-section">
+            <h2 class="section-title">What's the problem?</h2>
+            <div class="problem-content">
+                <p>Hunger is the No. 1 health risk in the world — killing more people every year than AIDS, malaria, and tuberculosis combined. Hunger and malnutrition are intrinsically linked to poverty.</p>
+                
+                <p>Education is a key component to breaking the poverty cycle. Although great progress has been made in recent years to ensure more children are able to access education, accessibility is not always enough.</p>
+                
+                <p>Worldwide around 66 million primary school-age children are attending classes without enough food. Approximately 23 million of these children are in Africa alone.</p>
+                
+                <p>Children are left with crippling hunger and have little choice but to skip classes trying to find food. Those that battle through hunger and stay in class, struggle to focus and perform.</p>
+            </div>
+        </div>
+
+        <!-- Solutions Section -->
+        <div class="solutions-section">
+            <h2 class="section-title">Our Solutions</h2>
+            
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <div class="solution-icon">🍽️</div>
+                    <h3 class="solution-title">Nutritious Meals</h3>
+                    <p class="solution-description">
+                        For just $0.30 per meal, we provide children with the nutrition they need to focus, learn, and build a foundation for escaping poverty through education.
+                    </p>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-icon">💰</div>
+                    <h3 class="solution-title">Blockchain Transparency</h3>
+                    <p class="solution-description">
+                        We leverage cryptocurrency and smart contracts to ensure every donation is tracked, transparent, and directly reaches beneficiaries while empowering families with digital financial tools.
+                    </p>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-icon">📈</div>
+                    <h3 class="solution-title">Scalable Impact</h3>
+                    <p class="solution-description">
+                        Starting with a pilot program in Uganda, we've successfully expanded to feed over 6,000 students and teachers across seven African schools.
+                    </p>
+                </div>
+            </div>
+
+            <div class="phase-banner">
+                <h3 class="phase-title">⭐ Milestone Achievement</h3>
+                <p class="phase-description">
+                    Binance Charity's Lunch for Children Program has successfully expanded to 10 additional schools in Uganda, demonstrating the transformative power of combining nutrition with education.
+                </p>
+                <button class="phase-btn">View Detailed Impact Report →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Copy contract address functionality
+            document.querySelector('.main-copy-btn').addEventListener('click', function() {
+                const contractText = this.previousElementSibling.textContent;
+                navigator.clipboard.writeText(contractText).then(() => {
+                    this.textContent = 'Copied!';
+                    this.style.background = '#10b981';
+                    this.style.color = '#f0fdf4';
+                    setTimeout(() => {
+                        this.textContent = 'Copy';
+                        this.style.background = '#92400e';
+                        this.style.color = '#fbbf24';
+                    }, 2000);
+                });
+            });
+
+            // Smooth hover effects
+            document.querySelectorAll('.card, .solution-card').forEach(element => {
+                element.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-4px)';
+                });
+                
+                element.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Button interaction effects
+            document.querySelectorAll('.donate-btn, .phase-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
